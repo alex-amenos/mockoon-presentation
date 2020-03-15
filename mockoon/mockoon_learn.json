@@ -1,0 +1,174 @@
+{
+    "source": "mockoon:1.7.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 9,
+                "name": "Mockoon",
+                "endpointPrefix": "api",
+                "latency": 0,
+                "port": 3001,
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "Hello world",
+                        "method": "get",
+                        "endpoint": "hello",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n\t\"message\": \"Hello world!\"\n}",
+                                "latency": 3000,
+                                "statusCode": "200",
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": []
+                            }
+                        ],
+                        "enabled": true
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "People",
+                        "method": "get",
+                        "endpoint": "people/1",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"firstName\": \"{{ firstName }}\",\n  \"lastName\": \"{{ lastName }}\",\n  \"email\": \"{{ email }}\",\n  \"phone\": \"{{ phone }}\",\n  \"company\": \"{{company}}\",\n  \"lang\": \"{{{ header 'Accept-Language' 'en' }}}\",\n  \"age\": \"{{ int 20 80 round=2 }}\",\n  \"birthdate\": \"{{date '1970' '2000' 'DD/MM/YYYY'}} \",\n  \"address\": {\n    \"street\": \"{{ street }}\",\n    \"city\": \"{{ city }}\",\n    \"country\": \"{{ country }}\"\n  },\n  \"position\": {\n    \"latitude\": \"{{ lat }}\",\n    \"longitude\": \"{{ long }}\"\n  },\n  \"detail\": \"{{ lorem 5 }} \",\n  \"car\": \"{{ oneOf (array 'Seat Leon' 'Seat Ibiza' 'Seat Mii' 'Seat 600') }}\",\n  \"images\": [\n    {{#repeat 3}}\n    \"https://picsum.photos/200/300?random={{@index}}\"\n    {{/repeat}}\n  ]\n}",
+                                "latency": 0,
+                                "statusCode": "200",
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": []
+                            }
+                        ],
+                        "enabled": true
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Cars",
+                        "method": "get",
+                        "endpoint": "cars/:id",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"id\": \"{{ urlParam 'id'}}\",\n  \"color\": \"{{ oneOf (array 'Red' 'Yellow' 'White' 'Black') }}\",\n  \"detail\": \"{{ lorem 5 }} \",\n  \"brand\":\n     {{#switch (urlParam 'id')}}\n       {{#case \"1\"}}\"FERRRI\"{{/case}}\n       {{#case \"2\"}}\"MERCEDES\"{{/case}}\n       {{#default}}\"SEAT\"{{/default }}\n     {{/switch}}\n}",
+                                "latency": 0,
+                                "statusCode": "200",
+                                "label": "JSON",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": []
+                            },
+                            {
+                                "uuid": "",
+                                "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n   <brand>FERRRI</brand>\n   <color>Yellow</color>\n   <detail>Eu bibendum etiam sagittis consectetur. </detail>\n   <id>1</id>\n</root>\n",
+                                "latency": 0,
+                                "statusCode": "200",
+                                "label": "XML",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/xml"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": []
+                            }
+                        ],
+                        "enabled": true
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "Login",
+                        "method": "post",
+                        "endpoint": "login",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "",
+                                "latency": 0,
+                                "statusCode": "201",
+                                "label": "OK",
+                                "headers": [
+                                    {
+                                        "key": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": []
+                            },
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"errors\": [\n    {\n      \"status\": \"422\",\n      \"title\":  \"Invalid Attribute\",\n      \"detail\": \"Password must contain at least eight characters.\"\n    }\n  ]\n}",
+                                "latency": 0,
+                                "statusCode": "422",
+                                "label": "Error",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": "body",
+                                        "modifier": "password",
+                                        "value": "",
+                                        "isRegex": false
+                                    }
+                                ]
+                            }
+                        ],
+                        "enabled": true
+                    }
+                ],
+                "proxyMode": true,
+                "proxyHost": "https://swapi.co",
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Origin",
+                        "value": "*"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Methods",
+                        "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+                    },
+                    {
+                        "key": "Access-Control-Allow-Headers",
+                        "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+                    }
+                ]
+            }
+        }
+    ]
+}
